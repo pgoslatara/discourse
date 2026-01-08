@@ -2399,6 +2399,7 @@ en:
     relative_date_duration: "Number of days after posting where post dates will be shown as relative (7d) instead of absolute (20 Feb)."
     delete_user_max_post_age: "Don't allow deleting users whose first post is older than (x) days."
     delete_all_posts_max: "The maximum number of posts that can be deleted at once with the Delete All Posts button. If a user has more than this many posts, the posts cannot all be deleted at once and the user can't be deleted."
+    delete_all_posts_background_threshold: "The maximum number of posts that can be deleted at once with the Delete All Posts button before the deletion is processed in the background."
     delete_user_self_max_post_count: "The maximum number of posts a user can have while allowing self-service account deletion. Set to -1 to disable self-service account deletion."
     username_change_period: "The maximum number of days after registration that accounts can change their username (0 to disallow username change)."
     email_editable: "Allow users to change their e-mail address after registration."
@@ -2757,6 +2758,7 @@ en:
     content_localization_allow_author_localization: "Allow authors update localizations of their own topics and posts via the post menu."
     enable_upcoming_changes: "Enable upcoming changes"
     fake_upcoming_change: "This is a fake upcoming change for testing purposes. No need to translate this string."
+    floating_dismiss_topics_on_mobile: "Shows a floating 'Dismiss...' button on mobile for the topic list for easier access and to free up space in the top of the topic list"
     experimental_rename_faq_to_guidelines: "This change renames the FAQ page to Guidelines. The FAQ page will still be available at /faq. The 'faq url' setting works as before."
 
     errors:
@@ -3402,6 +3404,7 @@ en:
 
     post_hidden:
       title: "Post Hidden"
+      preview: "Post hidden due to flags by community members."
       subject_template: "Post hidden by community flags"
       text_body_template: |
         Hello,
@@ -3466,6 +3469,7 @@ en:
 
     post_hidden_again:
       title: "Post Hidden again"
+      preview: "Post hidden again by community members."
       subject_template: "Post hidden by community flags, staff notified"
       text_body_template: |
         Hello,
@@ -3560,6 +3564,7 @@ en:
 
     welcome_user:
       title: "Welcome User"
+      preview: "Welcome to %{site_name}!"
       subject_template: "Welcome to %{site_name}!"
       text_body_template: |
         Thanks for joining %{site_name}, and welcome!
@@ -3589,6 +3594,7 @@ en:
         With great power comes great responsibility. If you’re new to moderating, please refer to the [Moderation Guide](https://meta.discourse.org/t/discourse-moderation-guide/63116).
     welcome_invite:
       title: "Welcome Invite"
+      preview: "Welcome to %{site_name}!"
       subject_template: "Welcome to %{site_name}!"
       text_body_template: |
         Thanks for accepting your invitation to %{site_name} -- welcome!
@@ -4024,6 +4030,7 @@ en:
 
     too_many_spam_flags:
       title: "Too Many Spam Flags"
+      preview: "Posts temporarily hidden due to spam flags."
       subject_template: "New account on hold"
       text_body_template: |
         Hello,
@@ -4046,6 +4053,7 @@ en:
         For additional guidance, please refer to our [community guidelines](%{base_url}/guidelines).
     silenced_by_staff:
       title: "Silenced by Staff"
+      preview: "Account temporarily placed on hold."
       subject_template: "Account temporarily on hold"
       text_body_template: |
         Hello,
@@ -4095,6 +4103,7 @@ en:
 
     unsilenced:
       title: "Unsilenced"
+      preview: "Account no longer on hold."
       subject_template: "Account no longer on hold"
       text_body_template: |
         Hello,
@@ -4137,6 +4146,12 @@ en:
         Hello,
 
         Posts from new users were held for moderation and are currently waiting to be reviewed. [Approve or reject them here](%{base_url}/review?type=ReviewableQueuedPost).
+
+    user_posts_deleted:
+      title: "User Posts Deleted"
+      subject_template: "All of %{user}'s posts have been deleted"
+      text_body_template: |
+        %{deleted_posts_count} posts from @%{user} have been deleted by @%{staff_user}.
 
   unsubscribe_link: |
     To unsubscribe from these emails, [click here](%{unsubscribe_url}).
@@ -4271,6 +4286,7 @@ en:
 
     user_replied:
       title: "User Replied"
+      preview: "Someone replied to your post."
       subject_template: "[%{email_prefix}] %{topic_title}"
       subject_template_improved: "%{email_prefix}: %{topic_title}"
       text_body_template: |
@@ -4297,6 +4313,7 @@ en:
 
     user_quoted:
       title: "User Quoted"
+      preview: "Someone quoted you in a post."
       subject_template: "[%{email_prefix}] %{topic_title}"
       subject_template_improved: "%{email_prefix}: %{topic_title}"
       text_body_template: |
@@ -4310,6 +4327,7 @@ en:
 
     user_linked:
       title: "User Linked"
+      preview: "Post linked in another topic."
       subject_template: "[%{email_prefix}] %{topic_title}"
       subject_template_improved: "%{email_prefix}: %{topic_title}"
       text_body_template: |
@@ -4323,6 +4341,7 @@ en:
 
     user_mentioned:
       title: "User Mentioned"
+      preview: "Someone mentioned you in a post."
       subject_template: "[%{email_prefix}] %{topic_title}"
       subject_template_improved: "%{email_prefix}: %{topic_title}"
       text_body_template: |
@@ -4388,6 +4407,7 @@ en:
 
     user_posted:
       title: "User Posted"
+      preview: "Someone replied to a topic you are Watching."
       subject_template: "[%{email_prefix}] %{topic_title}"
       subject_template_improved: "%{email_prefix}: %{topic_title}"
       text_body_template: |
@@ -4429,6 +4449,8 @@ en:
       title: "User Posted PM"
       subject_template: "[%{email_prefix}] %{topic_title}"
       subject_template_improved: "%{email_prefix}: %{topic_title}"
+      preview: "Someone sent you a PM."
+      subject_template: "[%{email_prefix}] [PM] %{topic_title}"
       text_body_template: |
         %{header_instructions}
 
@@ -4562,6 +4584,7 @@ en:
 
     forgot_password:
       title: "Forgot Password"
+      preview: "Reset your password."
       subject_template: "[%{email_prefix}] Password reset"
       subject_template_improved: "Password reset"
       text_body_template: |
@@ -4574,6 +4597,7 @@ en:
 
     email_login:
       title: "Log in via link"
+      preview: "Log in via link."
       subject_template: "[%{email_prefix}] Log in via link"
       subject_template_improved: "Log in via link"
       text_body_template: |
@@ -4588,6 +4612,8 @@ en:
       title: "Set Password"
       subject_template: "[%{email_prefix}] Set password"
       subject_template_improved: "Set password"
+      preview: "Set account password."
+      subject_template: "[%{email_prefix}] Set Password"
       text_body_template: |
         Somebody asked to add a password to your account on [%{site_name}](%{base_url}). Alternatively, you can log in using any supported online service (Google, Facebook, etc) that is associated with this validated email address.
 
@@ -4598,6 +4624,7 @@ en:
 
     admin_login:
       title: "Admin Login"
+      preview: "Admin login requested."
       subject_template: "[%{email_prefix}] Login"
       subject_template_improved: "Login"
       text_body_template: |
@@ -4612,6 +4639,8 @@ en:
       title: "Account Created"
       subject_template: "[%{email_prefix}] Your new account"
       subject_template_improved: "Your new account"
+      preview: "New account created for you."
+      subject_template: "[%{email_prefix}] Your New Account"
       text_body_template: |
         A new account was created for you at %{site_name}
 
@@ -4668,6 +4697,7 @@ en:
 
     notify_old_email:
       title: "Notify Old Email"
+      preview: "Email address updated."
       subject_template: "[%{email_prefix}] Your email address has been changed"
       subject_template_improved: "Your email address has been changed"
       text_body_template: |
@@ -4694,6 +4724,7 @@ en:
 
     signup_after_approval:
       title: "Signup After Approval"
+      preview: "New account approved."
       subject_template: "You've been approved on %{site_name}!"
       text_body_template: |
         Welcome to %{site_name}!
@@ -4721,6 +4752,7 @@ en:
 
     signup:
       title: "Signup"
+      preview: "Confirm your account."
       subject_template: "[%{email_prefix}] Confirm your new account"
       subject_template_improved: "Confirm your new account"
       text_body_template: |
@@ -4749,6 +4781,8 @@ en:
       title: "New Login Alert"
       subject_template: "[%{site_name}] New login from %{location}"
       subject_template_improved: "%{site_name}: New login from %{location}"
+      preview: "Verify your device."
+      subject_template: "[%{site_name}] New Login from %{location}"
       text_body_template: |
         Hello,
 

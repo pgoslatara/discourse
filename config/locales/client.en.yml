@@ -3842,6 +3842,8 @@ en:
         title: "Auto-Close Topic After Last Post"
       auto_delete:
         title: "Auto-Delete Topic"
+      auto_delete_after_last_post:
+        title: "Auto-Delete Topic After Last Post"
       auto_bump:
         title: "Auto-Bump Topic"
       reminder:
@@ -3854,6 +3856,7 @@ en:
         auto_close: "This topic will automatically close %{timeLeft}."
         auto_publish_to_category: "This topic will be published to <a href=%{categoryUrl}>#%{categoryName}</a> %{timeLeft}."
         auto_close_after_last_post: "This topic will close %{duration} after the last reply."
+        auto_delete_after_last_post: "This topic will be deleted %{duration} after the last reply."
         auto_delete: "This topic will be automatically deleted %{timeLeft}."
         auto_bump: "This topic will be automatically bumped %{timeLeft}."
         auto_reminder: "You will be reminded about this topic %{timeLeft}."
@@ -8078,6 +8081,17 @@ en:
         penalty_post_actions: "What would you like to do with the associated post?"
         penalty_post_delete: "Delete the post"
         penalty_post_delete_replies: "Delete the post + any replies"
+        penalty_post_delete_all: "Delete all topics by user + any replies"
+        penalty_post_delete_all_confirmation_MF: |
+          <span>This will delete
+          { TOPICS, plural,
+              one {# topic}
+            other {# topics}
+          } and
+          { REPLIES, plural,
+              one {# reply}
+            other {# replies}
+          }. <b>This cannot be undone!</b> Are you sure you would like to do this?</span>
         penalty_post_edit: "Edit the post"
         penalty_post_none: "Do nothing"
         penalty_count: "Penalty Count"
@@ -8184,7 +8198,9 @@ en:
           button: "Delete all posts"
           progress:
             title: "Progress of deleting posts"
-            description: "Deleting posts…"
+            description:
+              one: "Deleting %{count} post by @%{username}..."
+              other: "Deleting %{count} posts by @%{username}..."
           confirmation:
             title: "Delete all posts by @%{username}"
             description: |
@@ -8197,6 +8213,7 @@ en:
             text: "delete posts by @%{username}"
             delete: "Delete posts by @%{username}"
             cancel: "Cancel"
+          all_enqueued: "All of @%{username}'s posts have been queued for deletion"
         merge:
           button: "Merge"
           prompt:

@@ -21,6 +21,11 @@
 #                         is changed.
 # themeable             - Set to true if themes can override this site setting. Generally, only client side affecting settings
 #                         that change the UI should be themeable, and try limit to simple setting types like bool, list, integer, enum.
+# upcoming_change       - Additional metadata with the following options to show in the /admin/config/upcoming-changes page:
+#                          - status: experimental | alpha | beta | stable
+#                          - impact: two parts separated by comma - feature|other , staff|admins|moderators|all_members|developers
+#                          - learn_more_url: a url for more information
+#
 #
 #
 # type: email                 - Must be a valid email address.
@@ -990,6 +995,11 @@ users:
   delete_all_posts_max:
     client: true
     default: 15
+    min: 1
+    area: "users"
+  delete_all_posts_background_threshold:
+    client: true
+    default: 200
     min: 1
     area: "users"
   delete_user_self_max_post_count:
@@ -4218,3 +4228,10 @@ experimental:
     default: false
     hidden: true
     client: true
+  floating_dismiss_topics_on_mobile:
+    default: false
+    hidden: true
+    client: true
+    upcoming_change:
+      status: "experimental"
+      impact: "feature,all_members"
