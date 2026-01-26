@@ -2206,7 +2206,7 @@ files:
   s3_secret_access_key:
     default: ""
     secret: true
-  s3_profile:
+  s3_role_session_name:
     default: ""
     secret: true
   s3_role_arn:

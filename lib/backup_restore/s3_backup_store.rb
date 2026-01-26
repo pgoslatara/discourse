@@ -11,8 +11,9 @@ module BackupRestore
              to: :s3_helper
 
     def initialize(opts = {})
-      profile = SiteSetting.respond_to?(:s3_profile) ? SiteSetting.s3_profile : nil
-      @s3_options = S3Helper.s3_options(SiteSetting, profile: profile)
+      role_session_name =
+        SiteSetting.respond_to?(:s3_role_session_name) ? SiteSetting.s3_role_session_name : nil
+      @s3_options = S3Helper.s3_options(SiteSetting, role_session_name: role_session_name)
       @s3_options.merge!(opts[:s3_options]) if opts[:s3_options]
     end
 

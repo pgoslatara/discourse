@@ -25,8 +25,15 @@ module FileStore
         begin
           # Choose config source: SiteSetting (UI config) or GlobalSetting (env vars)
           setting_klass = SiteSetting.enable_s3_uploads? ? SiteSetting : GlobalSetting
-          profile = setting_klass.respond_to?(:s3_profile) ? setting_klass.s3_profile : nil
-          options = S3Helper.s3_options(setting_klass, profile: profile)
+          role_session_name =
+            (
+              if setting_klass.respond_to?(:s3_role_session_name)
+                setting_klass.s3_role_session_name
+              else
+                nil
+              end
+            )
+          options = S3Helper.s3_options(setting_klass, role_session_name: role_session_name)
           options[:use_accelerate_endpoint] = SiteSetting.Upload.enable_s3_transfer_acceleration
           options[:use_dualstack_endpoint] = SiteSetting.Upload.use_dualstack_endpoint
 

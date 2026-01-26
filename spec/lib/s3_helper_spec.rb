@@ -424,7 +424,7 @@ RSpec.describe "S3Helper" do
               </AssumeRoleResponse>
             XML
 
-        options = S3Helper.s3_options(GlobalSetting, profile: "file-uploads")
+        options = S3Helper.s3_options(GlobalSetting, role_session_name: "file-uploads")
 
         expect(options[:credentials]).to be_a(Aws::AssumeRoleCredentials)
         expect(options).not_to have_key(:access_key_id)
@@ -437,11 +437,11 @@ RSpec.describe "S3Helper" do
         GlobalSetting.stubs(:s3_access_key_id).returns("test-key")
         GlobalSetting.stubs(:s3_secret_access_key).returns("test-secret")
 
-        options = S3Helper.s3_options(GlobalSetting, profile: nil)
+        options = S3Helper.s3_options(GlobalSetting, role_session_name: nil)
 
         expect(options[:access_key_id]).to eq("test-key")
         expect(options[:secret_access_key]).to eq("test-secret")
-        expect(options).not_to have_key(:profile)
+        expect(options).not_to have_key(:role_session_name)
       end
     end
 
@@ -450,22 +450,22 @@ RSpec.describe "S3Helper" do
         GlobalSetting.stubs(:s3_access_key_id).returns(nil)
         GlobalSetting.stubs(:s3_secret_access_key).returns(nil)
 
-        options = S3Helper.s3_options(GlobalSetting, profile: nil)
+        options = S3Helper.s3_options(GlobalSetting, role_session_name: nil)
 
         expect(options).not_to have_key(:access_key_id)
         expect(options).not_to have_key(:secret_access_key)
-        expect(options).not_to have_key(:profile)
+        expect(options).not_to have_key(:role_session_name)
       end
 
       it "omits credentials when either key is blank" do
         GlobalSetting.stubs(:s3_access_key_id).returns("")
         GlobalSetting.stubs(:s3_secret_access_key).returns("test-secret")
 
-        options = S3Helper.s3_options(GlobalSetting, profile: nil)
+        options = S3Helper.s3_options(GlobalSetting, role_session_name: nil)
 
         expect(options).not_to have_key(:access_key_id)
         expect(options).not_to have_key(:secret_access_key)
-        expect(options).not_to have_key(:profile)
+        expect(options).not_to have_key(:role_session_name)
       end
     end
   end
