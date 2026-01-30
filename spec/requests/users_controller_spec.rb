@@ -8029,7 +8029,7 @@ RSpec.describe UsersController do
 
         %i[
           number_of_deleted_posts
-          number_of_flagged_posts
+          number_of_flags
           number_of_flags_given
           number_of_silencings
           number_of_suspensions
@@ -8045,6 +8045,16 @@ RSpec.describe UsersController do
 
         get "/u/#{user.username}/staff-info.json"
         expect(response.parsed_body).to eq(result)
+      end
+
+      it "returns correct number_of_flags count for all reviewable types" do
+        sign_in(admin)
+
+        Fabricate(:reviewable_queued_post, target_created_by: user)
+
+        get "/u/#{user.username}/staff-info.json"
+
+        expect(response.parsed_body["number_of_flags"]).to eq(2)
       end
     end
   end
