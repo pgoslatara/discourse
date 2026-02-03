@@ -32,7 +32,7 @@ class AssetProcessor
     PROCESSOR_PATH
   end
 
-  def self.snapshot
+  def self.raw_snapshot
     @raw_snapshot ||=
       begin
         source =
@@ -44,13 +44,16 @@ class AssetProcessor
 
         MiniRacer::Snapshot.new(source).dump
       end
-
-    MiniRacer::Snapshot.load(@raw_snapshot)
   end
 
   def self.create_new_context
     # timeout any eval that takes longer than 15 seconds
-    ctx = MiniRacer::Context.new(timeout: 15_000, ensure_gc_after_idle: 2000, snapshot: snapshot)
+    ctx =
+      MiniRacer::Context.new(
+        timeout: 15_000,
+        ensure_gc_after_idle: 2000,
+        snapshot: MiniRacer::Snapshot.load(raw_snapshot),
+      )
 
     ctx.attach(
       "rails.logger.info",
